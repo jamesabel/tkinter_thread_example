@@ -40,16 +40,16 @@ class ExampleTKApp(Tk):
         self._text_box = Label(self, text="")
         self._text_box.grid()
 
-        self.background_task = Background(self.update_display)
-        self.background_task.start()
+        self._background_task = Background(self.update_display)
+        self._background_task.start()
 
     def update_display(self, text):
         self._text_box.configure(text=text)
 
     def on_exit(self):
         print('ExampleTKApp : on_exit() entry')
-        self.background_task.request_exit()
-        self.background_task.join()
+        self._background_task.request_exit()
+        self._background_task.join()
         print('ExampleTKApp : on_exit() : calling self.destroy()')
         self.destroy()
         print('ExampleTKApp : on_exit() exit')
