@@ -9,15 +9,15 @@ import threading
 
 
 class Background(threading.Thread):
-    def __init__(self, callback):
+    def __init__(self, update_display_callback):
         super().__init__()
-        self._callback = callback
+        self._update_display_callback = update_display_callback
         self._exit_event = threading.Event()
 
     def run(self):
         while not self._exit_event.is_set():
             # display the time, updating frequently
-            self._callback("the time is : %s" % datetime.datetime.now())
+            self._update_display_callback("the time is : %s" % datetime.datetime.now())
             self._exit_event.wait(0.5)  # wait a little while, or immediately exit if the exit_event gets set
         print('Background : run() exiting')
 
@@ -37,7 +37,7 @@ class ExampleTKApp(Tk):
         self.geometry("400x200")
 
         # this is where we'll display something to show we're running
-        self._text_box = Label(self, text="_")
+        self._text_box = Label(self, text="")
         self._text_box.grid()
 
         self.background_task = Background(self.update_display)
