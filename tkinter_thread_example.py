@@ -16,9 +16,9 @@ class Background(threading.Thread):
 
     def run(self):
         while not self._exit_event.is_set():
-            # display the time, updating once a second
+            # display the time, updating frequently
             self._text_box.configure(text="the time is : %s" % datetime.datetime.now())
-            self._exit_event.wait(1)  # wait 1 sec, or immediately exit if the exit_event gets set
+            self._exit_event.wait(0.1)  # wait a little while, or immediately exit if the exit_event gets set
         print('Background : run() exiting')
 
     def request_exit(self):
