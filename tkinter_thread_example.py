@@ -9,15 +9,15 @@ import threading
 
 
 class Background(threading.Thread):
-    def __init__(self, text_box):
+    def __init__(self, callback):
         super().__init__()
-        self._text_box = text_box
+        self._callback = callback
         self._exit_event = threading.Event()
 
     def run(self):
         while not self._exit_event.is_set():
             # display the time, updating frequently
-            self._text_box.configure(text="the time is : %s" % datetime.datetime.now())
+            self._callback("the time is : %s" % datetime.datetime.now())
             self._exit_event.wait(0.5)  # wait a little while, or immediately exit if the exit_event gets set
         print('Background : run() exiting')
 
@@ -40,8 +40,11 @@ class ExampleTKApp(Tk):
         self._text_box = Label(self, text="_")
         self._text_box.grid()
 
-        self.background_task = Background(self._text_box)
+        self.background_task = Background(self.update_display)
         self.background_task.start()
+
+    def update_display(self, text):
+        self._text_box.configure(text=text)
 
     def on_exit(self):
         print('ExampleTKApp : on_exit() entry')
