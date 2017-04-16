@@ -1,5 +1,7 @@
 
-This file is part of tkinter_thread_example by James Abel.
+This file is part of tkinter_thread_example which is a small example program of a tkinter window that is
+also running a background thread.
+Copyright (C) 2017 James Abel
 
 tkinter_thread_example is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

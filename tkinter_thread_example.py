@@ -1,7 +1,10 @@
 
+# example tkinter window with a background thread
+# author: James Abel
+# see the LICENSE file for the license
+
 import datetime
 from tkinter import *
-
 import threading
 
 
@@ -13,6 +16,7 @@ class Background(threading.Thread):
 
     def run(self):
         while not self._exit_event.is_set():
+            # display the time, updating once a second
             self._text_box.configure(text="the time is : %s" % datetime.datetime.now())
             self._exit_event.wait(1)  # wait 1 sec, or immediately exit if the exit_event gets set
         print('Background : run() exiting')
